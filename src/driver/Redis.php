@@ -6,6 +6,9 @@
  * Time: 15:01
  */
 namespace cache\driver;
+/**
+ * redis缓存类
+ */
 class Redis
 {
 
@@ -18,7 +21,7 @@ class Redis
     protected $options = [
         'host'       => '127.0.0.1',
         'port'       => 6379,
-        'password'   => '123456',
+        'password'   => '',
         'select'     => 0,
         'timeout'    => 0,
         'expire'     => 0,

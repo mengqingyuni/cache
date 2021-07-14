@@ -40,8 +40,7 @@ abstract class Manager
     protected function driver(string $name = null)
     {
 //        return new Redis();
-       $name = $name ?: $this->getDefaultDriver();
-
+        $name = $name ?: $this->getDefaultDriver();
         if (is_null($name)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to resolve NULL driver for [%s].',
@@ -79,7 +78,6 @@ abstract class Manager
      */
     protected function resolveConfig(string $name)
     {
-
         return $name;
     }
 
@@ -90,9 +88,10 @@ abstract class Manager
      */
     protected function resolveClass(string $type): string
     {
-        if ($this->namespace || false !== strpos($type, '\\')) {
-            $class = false !== strpos($type, '\\') ? $type : $this->namespace . Str::studly($type);
 
+        if ($this->namespace || false !== strpos($type, '\\')) {
+
+            $class = strpos($type, '\\') ? $type : $this->namespace .$type;
             if (class_exists($class)) {
                 return $class;
             }
@@ -110,7 +109,8 @@ abstract class Manager
     {
 
         $config = $this->resolveConfig($name);
-        return [$config];
+
+        return $config;
     }
 
     /**
@@ -122,9 +122,10 @@ abstract class Manager
      */
     protected function createDriver(string $name)
     {
-        //获取配置参数
-
-        return $this->resolveParams($name);
+        $type = $this->resolveType($name);
+        $params = $this->resolveParams($name);
+        $class = $this->resolveClass($type);
+        return new $class($params);
     }
 
     /**
@@ -152,15 +153,5 @@ abstract class Manager
      */
     abstract public function getDefaultDriver();
 
-    /**
-     * 动态调用
-     * @param string $method
-     * @param array  $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return $this->driver()->$method(...$parameters);
-    }
 
 }

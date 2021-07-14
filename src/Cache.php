@@ -12,8 +12,9 @@ declare (strict_types = 1);
 
 namespace cache;
 
+use function PHPSTORM_META\type;
 use Psr\SimpleCache\CacheInterface;
-
+use config\Config;
 
 /**
  * Class Cache
@@ -22,6 +23,7 @@ use Psr\SimpleCache\CacheInterface;
  */
 class Cache extends Manager implements CacheInterface
 {
+    protected $namespace = '\\cache\\driver\\';
 
     /**
      * 默认驱动
@@ -29,7 +31,7 @@ class Cache extends Manager implements CacheInterface
      */
     public function getDefaultDriver()
     {
-        return $this->getConfig('default');
+        return $this->getConfig('default.type');
     }
 
     /**
@@ -41,32 +43,16 @@ class Cache extends Manager implements CacheInterface
      */
     public function getConfig(string $name = null, $default = null)
     {
-//        if (!is_null($name)) {
-//            return $this->app->config->get('cache.' . $name, $default);
-//        }
-
-        return "redis";
+        return (new Config())->get($name);
     }
     protected function resolveType(string $name)
     {
-        return "redis";
+        return (new Config())->get($name.'.type');
     }
 
     protected function resolveConfig(string $name)
     {
-        return[
-            // 驱动方式
-            'host'       => '127.0.0.1',
-            'port'       => 6379,
-            'password'   => '123456',
-            'select'     => 0,
-            'timeout'    => 0,
-            'expire'     => 0,
-            'persistent' => false,
-            'prefix'     => '',
-            'tag_prefix' => 'tag:',
-            'serialize'  => [],
-        ];
+        return (new Config())->get($name);
     }
 
     /**
