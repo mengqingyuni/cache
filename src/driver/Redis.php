@@ -87,10 +87,18 @@ class Redis
      */
     public function set($name, $value, $expire = null): bool
     {
-
         $this->handler->set($name, $value);
-
         return true;
+    }
+
+    /**
+     * 检测缓存
+     * @param $name
+     * @return null
+     */
+    public function has($name)
+    {
+        return $this->get($name) == false ?:null;
     }
 
 }
