@@ -127,6 +127,19 @@ class File
 
     }
 
+    public function has($name)
+    {
+        if ($this->getRaw($name) == false ||$this->getRaw($name) == null ) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 返回序列化
+     * @param $raw
+     * @return bool
+     */
     public function unserialize($raw)
     {
         if (!is_array($raw)){
@@ -143,6 +156,11 @@ class File
 
     }
 
+    /**
+     * 获取缓存数据
+     * @param $name
+     * @return array|bool|null
+     */
     public function getRaw($name)
     {
 
@@ -158,7 +176,7 @@ class File
         }
         $path = $this->options['path'].'/'.$name.'.php';
         if (!file_exists($path)){
-            return [];
+            return false;
         }
         $result = @file_get_contents($path,true );
         if ($result == true) {
@@ -183,6 +201,8 @@ class File
 
 
         }
+
+        return false;
 
 
     }
