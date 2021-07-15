@@ -21,10 +21,12 @@ return [
         'prefix'     => '',
         // 缓存有效期 0表示永久缓存
         'expire'     => 0,
+
+        'data_compress' => true,
         // 缓存标签前缀
         'tag_prefix' => 'tag:',
         // 序列化机制 例如 ['serialize', 'unserialize']
-        'serialize'  => [],
+        'serialize'  => ['serialize', 'unserialize'],
     ],
     // 更多的缓存连接
     'redis' => [

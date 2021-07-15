@@ -8,5 +8,5 @@ define('CONFIG_PATH',__DIR__ . '/config/');
 
  (new config\Config())->load(CONFIG_PATH,'cache');
 
-(new Cache())->set("ss","111");
-//echo (new Cache())->get("ss");
+//(new Cache())->set("ss","111sssss",20);
+var_dump( (new Cache())->get("ss"));
