@@ -153,5 +153,11 @@ abstract class Manager
      */
     abstract public function getDefaultDriver();
 
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
+
+        $this->driver()->$name(...$arguments);
+    }
 
 }

@@ -45,6 +45,7 @@ class Cache extends Manager implements CacheInterface
     {
         return (new Config())->get($name);
     }
+
     protected function resolveType(string $name)
     {
         return (new Config())->get($name.'.type');
@@ -96,7 +97,7 @@ class Cache extends Manager implements CacheInterface
      * @param int|\DateTime $ttl   有效时间 0为永久
      * @return bool
      */
-    public function set($key, $value, $ttl = null): bool
+    public function set($key, $value, $ttl = null)
     {
         return $this->store()->set($key, $value, $ttl);
     }
@@ -120,7 +121,7 @@ class Cache extends Manager implements CacheInterface
      * @return iterable
      * @throws InvalidArgumentException
      */
-    public function getMultiple($keys, $default = null): iterable
+    public function getMultiple($keys, $default = null)
     {
         return $this->store()->getMultiple($keys, $default);
     }
@@ -132,7 +133,7 @@ class Cache extends Manager implements CacheInterface
      * @param null|int|\DateInterval $ttl    有效时间 0为永久
      * @return bool
      */
-    public function setMultiple($values, $ttl = null): bool
+    public function setMultiple($values, $ttl = null)
     {
         return $this->store()->setMultiple($values, $ttl);
     }
@@ -144,7 +145,7 @@ class Cache extends Manager implements CacheInterface
      * @return bool
      * @throws InvalidArgumentException
      */
-    public function deleteMultiple($keys): bool
+    public function deleteMultiple($keys)
     {
         return $this->store()->deleteMultiple($keys);
     }
@@ -155,7 +156,7 @@ class Cache extends Manager implements CacheInterface
      * @param string $key 缓存变量名
      * @return bool
      */
-    public function has($key): bool
+    public function has($key)
     {
         return $this->store()->has($key);
     }
@@ -166,8 +167,10 @@ class Cache extends Manager implements CacheInterface
      * @param string|array $name 标签名
      * @return TagSet
      */
-    public function tag($name): TagSet
+    public function tag($name)
     {
         return $this->store()->tag($name);
     }
+
+
 }

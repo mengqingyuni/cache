@@ -87,18 +87,36 @@ class Redis
      */
     public function set($name, $value, $expire = null): bool
     {
-        $this->handler->set($name, $value);
+        $this->handler->set($name, $value,$expire);
         return true;
     }
 
     /**
-     * 检测缓存
+     * 检测名称是否存在
+     * EXISTS
+     * @param $name
+     * @return bool
+     */
+    public function exists($name)
+    {
+       return $this->handler->exists($name) == 0 ? false :true;
+    }
+
+    /**
+     * 检测缓存是否存在
      * @param $name
      * @return null
      */
     public function has($name)
     {
-        return $this->get($name) == false ?:null;
+        return $this->exists($name) == 0 ? false : true;
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
+        return call_user_func_array([$this->handler, $name], $arguments);
+
     }
 
 }

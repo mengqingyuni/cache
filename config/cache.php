@@ -8,7 +8,7 @@ return [
     // 默认缓存驱动
     'default' => [
         "driver" => "cache.driver",
-        "type"   => "file"
+        "type"   => "redis"
     ],
     // 缓存连接方式配置
 
