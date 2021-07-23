@@ -11,8 +11,6 @@
 declare (strict_types = 1);
 
 namespace cache;
-
-use function PHPSTORM_META\type;
 use Psr\SimpleCache\CacheInterface;
 use config\Config;
 
